@@ -462,17 +462,9 @@ extern "C" commandResult_t IR_Send_Cmd(const void *context, const char *cmd, con
 
 	*p='\0';
 	decode_type_t protocol = strToDecodeType(args);
-	if(hasACState(protocol))
-	{
-		ADDLOG_ERROR(LOG_FEATURE_IR, (char *)"IRSend can't send AC commands", args);
-		return CMD_RES_BAD_ARGUMENT;
-	}
 	p++;
 	int addr = strtol(p, &p, 16);
-	if ((*p != '-') && (*p != ' ')) {
-		ADDLOG_ERROR(LOG_FEATURE_IR, (char *)"IRSend cmnd not valid [%s] not like [NEC-0-1A] or [NEC 0 1A 1].", args);
-		return CMD_RES_BAD_ARGUMENT;
-	}
+
 	p++;
 	int command = strtol(p, &p, 16);
 
@@ -488,26 +480,41 @@ extern "C" commandResult_t IR_Send_Cmd(const void *context, const char *cmd, con
 
 		switch(protocol)
 		{
-			case decode_type_t::RC5:
-				pIRsend->sendRC5((uint64_t)pIRsend->encodeRC5(addr,command));
-				break;
-			case decode_type_t::RC6:
-				pIRsend->sendRC6((uint64_t)pIRsend->encodeRC6(addr,command));
-				break;
 			case decode_type_t::NEC:
 				pIRsend->sendNEC((uint64_t)pIRsend->encodeNEC(addr,command));
-				break;
-			case decode_type_t::PANASONIC:
-				pIRsend->sendPanasonic((uint16_t)addr,(uint32_t)command);
-				break;
-			case decode_type_t::JVC:
-				pIRsend->sendJVC((uint64_t)pIRsend->encodeJVC(addr,command));
 				break;
 			case decode_type_t::SAMSUNG:
 				pIRsend->sendSAMSUNG((uint64_t)pIRsend->encodeSAMSUNG(addr,command));
 				break;
-			case decode_type_t::LG:
-				pIRsend->sendLG((uint64_t)pIRsend->encodeLG(addr,command));
+			case decode_type_t::DAIKIN:
+				pIRsend->sendDaikin((unsigned char *)pIRsend);
+				break;
+			case decode_type_t::DAIKIN64:
+				pIRsend->sendDaikin64((uint64_t)pIRsend);
+				break;
+			case decode_type_t::DAIKIN128:
+				pIRsend->sendDaikin128((unsigned char *)pIRsend);
+				break;
+			case decode_type_t::DAIKIN152:
+				pIRsend->sendDaikin152((unsigned char *)pIRsend);
+				break;
+			case decode_type_t::DAIKIN160:
+				pIRsend->sendDaikin160((unsigned char *)pIRsend);
+				break;
+			case decode_type_t::DAIKIN176:
+				pIRsend->sendDaikin176((unsigned char *)pIRsend);
+				break;
+			case decode_type_t::DAIKIN2:
+				pIRsend->sendDaikin2((unsigned char *)pIRsend);
+				break;
+			case decode_type_t::DAIKIN200:
+				pIRsend->sendDaikin200((unsigned char *)pIRsend);
+				break;
+			case decode_type_t::DAIKIN216:
+				pIRsend->sendDaikin216((unsigned char *)pIRsend);
+				break;
+			case decode_type_t::DAIKIN312:
+				pIRsend->sendDaikin312((unsigned char *)pIRsend);
 				break;
 			default:
 				ADDLOG_ERROR(LOG_FEATURE_IR, (char *)"IR send %s protocol not supported", args);
@@ -904,14 +911,35 @@ extern "C" void DRV_IR_RunFrame() {
 					case decode_type_t::SHARP:
 						tgType = CMD_EVENT_IR_SHARP;
 						break;
-					case decode_type_t::RC5:
-						tgType = CMD_EVENT_IR_RC5;
+					case decode_type_t::DAIKIN:
+						tgType = CMD_EVENT_IR_DAIKIN;
 						break;
-					case decode_type_t::RC6:
-						tgType = CMD_EVENT_IR_RC6;
+					case decode_type_t::DAIKIN64:
+						tgType = CMD_EVENT_IR_DAIKIN64;
 						break;
-					case decode_type_t::SONY:
-						tgType = CMD_EVENT_IR_SONY;
+					case decode_type_t::DAIKIN128:
+						tgType = CMD_EVENT_IR_DAIKIN128;
+						break;
+					case decode_type_t::DAIKIN152:
+						tgType = CMD_EVENT_IR_DAIKIN152;
+						break;
+					case decode_type_t::DAIKIN160:
+						tgType = CMD_EVENT_IR_DAIKIN160;
+						break;
+					case decode_type_t::DAIKIN176:
+						tgType = CMD_EVENT_IR_DAIKIN176;
+						break;
+					case decode_type_t::DAIKIN2:
+						tgType = CMD_EVENT_IR_DAIKIN2;
+						break;
+					case decode_type_t::DAIKIN200:
+						tgType = CMD_EVENT_IR_DAIKIN200;
+						break;
+					case decode_type_t::DAIKIN216:
+						tgType = CMD_EVENT_IR_DAIKIN216;
+						break;
+					case decode_type_t::DAIKIN312:
+						tgType = CMD_EVENT_IR_DAIKIN312;
 						break;
 					default:
 						break;

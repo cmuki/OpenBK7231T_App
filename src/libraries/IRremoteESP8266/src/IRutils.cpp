@@ -171,12 +171,6 @@ String typeToString(const decode_type_t protocol, const bool isRepeat) {
 bool hasACState(const decode_type_t protocol) {
   switch (protocol) {
     // This is kept sorted by name
-    case AMCOR:
-    case ARGO:
-    case BOSCH144:
-    case CARRIER_AC84:
-    case CARRIER_AC128:
-    case CORONA_AC:
     case DAIKIN:
     case DAIKIN128:
     case DAIKIN152:
@@ -186,46 +180,6 @@ bool hasACState(const decode_type_t protocol) {
     case DAIKIN200:
     case DAIKIN216:
     case DAIKIN312:
-    case ELECTRA_AC:
-    case FUJITSU_AC:
-    case GREE:
-    case HAIER_AC:
-    case HAIER_AC_YRW02:
-    case HAIER_AC160:
-    case HAIER_AC176:
-    case HITACHI_AC:
-    case HITACHI_AC1:
-    case HITACHI_AC2:
-    case HITACHI_AC3:
-    case HITACHI_AC264:
-    case HITACHI_AC296:
-    case HITACHI_AC344:
-    case HITACHI_AC424:
-    case KELON168:
-    case KELVINATOR:
-    case MIRAGE:
-    case MITSUBISHI136:
-    case MITSUBISHI112:
-    case MITSUBISHI_AC:
-    case MITSUBISHI_HEAVY_88:
-    case MITSUBISHI_HEAVY_152:
-    case MWM:
-    case NEOCLIMA:
-    case PANASONIC_AC:
-    case RHOSS:
-    case SAMSUNG_AC:
-    case SANYO_AC:
-    case SANYO_AC88:
-    case SANYO_AC152:
-    case SHARP_AC:
-    case TCL96AC:
-    case TCL112AC:
-    case TEKNOPOINT:
-    case TOSHIBA_AC:
-    case TROTEC:
-    case TROTEC_3550:
-    case VOLTAS:
-    case WHIRLPOOL_AC:
       return true;
     default:
       return false;
@@ -601,109 +555,6 @@ namespace irutils {
   /// @note After adding a new model you should update IRac::strToModel() too.
   String modelToStr(const decode_type_t protocol, const int16_t model) {
     switch (protocol) {
-      case decode_type_t::FUJITSU_AC:
-        switch (model) {
-          case fujitsu_ac_remote_model_t::ARRAH2E: return kArrah2eStr;
-          case fujitsu_ac_remote_model_t::ARDB1:   return kArdb1Str;
-          case fujitsu_ac_remote_model_t::ARREB1E: return kArreb1eStr;
-          case fujitsu_ac_remote_model_t::ARJW2:   return kArjw2Str;
-          case fujitsu_ac_remote_model_t::ARRY4:   return kArry4Str;
-          case fujitsu_ac_remote_model_t::ARREW4E: return kArrew4eStr;
-          default:                                 return kUnknownStr;
-        }
-        break;
-      case decode_type_t::GREE:
-        switch (model) {
-          case gree_ac_remote_model_t::YAW1F:  return kYaw1fStr;
-          case gree_ac_remote_model_t::YBOFB:  return kYbofbStr;
-          case gree_ac_remote_model_t::YX1FSF: return kYx1fsfStr;
-          default:                             return kUnknownStr;
-        }
-        break;
-      case decode_type_t::HAIER_AC176:
-        switch (model) {
-          case haier_ac176_remote_model_t::V9014557_A:
-            return kV9014557AStr;
-          case haier_ac176_remote_model_t::V9014557_B:
-            return kV9014557BStr;
-          default:
-            return kUnknownStr;
-        }
-        break;
-      case decode_type_t::HITACHI_AC1:
-        switch (model) {
-          case hitachi_ac1_remote_model_t::R_LT0541_HTA_A:
-            return kRlt0541htaaStr;
-          case hitachi_ac1_remote_model_t::R_LT0541_HTA_B:
-            return kRlt0541htabStr;
-          default:
-            return kUnknownStr;
-        }
-        break;
-      case decode_type_t::LG:
-      case decode_type_t::LG2:
-        switch (model) {
-          case lg_ac_remote_model_t::GE6711AR2853M: return kGe6711ar2853mStr;
-          case lg_ac_remote_model_t::AKB75215403:   return kAkb75215403Str;
-          case lg_ac_remote_model_t::AKB74955603:   return kAkb74955603Str;
-          case lg_ac_remote_model_t::AKB73757604:   return kAkb73757604Str;
-          case lg_ac_remote_model_t::LG6711A20083V: return kLg6711a20083vStr;
-          default:                                  return kUnknownStr;
-        }
-        break;
-      case decode_type_t::MIRAGE:
-        switch (model) {
-          case mirage_ac_remote_model_t::KKG9AC1:  return kKkg9ac1Str;
-          case mirage_ac_remote_model_t::KKG29AC1: return kKkg29ac1Str;
-          default:                                 return kUnknownStr;
-        }
-        break;
-      case decode_type_t::PANASONIC_AC:
-        switch (model) {
-          case panasonic_ac_remote_model_t::kPanasonicLke: return kLkeStr;
-          case panasonic_ac_remote_model_t::kPanasonicNke: return kNkeStr;
-          case panasonic_ac_remote_model_t::kPanasonicDke: return kDkeStr;
-          case panasonic_ac_remote_model_t::kPanasonicJke: return kJkeStr;
-          case panasonic_ac_remote_model_t::kPanasonicCkp: return kCkpStr;
-          case panasonic_ac_remote_model_t::kPanasonicRkr: return kRkrStr;
-          default:                                         return kUnknownStr;
-        }
-        break;
-      case decode_type_t::SHARP_AC:
-        switch (model) {
-          case sharp_ac_remote_model_t::A907: return kA907Str;
-          case sharp_ac_remote_model_t::A705: return kA705Str;
-          case sharp_ac_remote_model_t::A903: return kA903Str;
-          default:                            return kUnknownStr;
-        }
-        break;
-      case decode_type_t::TCL112AC:
-        switch (model) {
-          case tcl_ac_remote_model_t::TAC09CHSD: return kTac09chsdStr;
-          case tcl_ac_remote_model_t::GZ055BE1:  return kGz055be1Str;
-          default:                               return kUnknownStr;
-        }
-        break;
-      case decode_type_t::VOLTAS:
-        switch (model) {
-          case voltas_ac_remote_model_t::kVoltas122LZF: return k122lzfStr;
-          default:                                      return kUnknownStr;
-        }
-        break;
-      case decode_type_t::WHIRLPOOL_AC:
-        switch (model) {
-          case whirlpool_ac_remote_model_t::DG11J13A: return kDg11j13aStr;
-          case whirlpool_ac_remote_model_t::DG11J191: return kDg11j191Str;
-          default:                                    return kUnknownStr;
-        }
-        break;
-      case decode_type_t::ARGO:
-        switch (model) {
-          case argo_ac_remote_model_t::SAC_WREM2: return kArgoWrem2Str;
-          case argo_ac_remote_model_t::SAC_WREM3: return kArgoWrem3Str;
-          default:                                return kUnknownStr;
-        }
-        break;
       default: return kUnknownStr;
     }
   }
